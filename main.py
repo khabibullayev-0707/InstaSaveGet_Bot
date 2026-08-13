@@ -20,7 +20,7 @@ from telegram.ext import (
 # KONFIGURATSIYA
 # =========================================================
 
-BOT_TOKEN = ""
+BOT_TOKEN = "7976473561:AAG_o09OrcpJcF5snBw1qiDNgMwJn4lQYjc"
 
 DOWNLOAD_DIR = "downloads"
 CACHE_DIR = "cache"
