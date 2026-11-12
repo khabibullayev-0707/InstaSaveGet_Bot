@@ -1,6 +1,16 @@
 # InstaSaveGet Bot
 
-Instagram'dagi ochiq video, Reels va rasmlarni yuklab beruvchi Telegram bot.
+Instagram, YouTube va Facebook'dan video hamda musiqa yuklab beruvchi Telegram bot.
+
+## Imkoniyatlar
+
+- **Video yuklash**: Instagram, YouTube (Shorts ham) yoki Facebook havolasi
+  yuborilsa, bot videoni yuklab beradi.
+- **«🎵 Musiqa» tugmasi**: har bir video tagida turadi; bosilsa, o'sha
+  videoning ovozi MP3 bo'lib keladi.
+- **Qo'shiq qidirish**: ijrochi ismi, qo'shiq nomi yoki matnidan parcha
+  yozilsa, bot 10 tadan natija ko'rsatadi (⬅️ ➡️ bilan sahifalanadi).
+  Tanlangan qo'shiq MP3 bo'lib keladi.
 
 ## O'rnatish
 
@@ -10,6 +20,9 @@ Instagram'dagi ochiq video, Reels va rasmlarni yuklab beruvchi Telegram bot.
    ```
    pip install -r requirements.txt
    ```
+
+   `ffmpeg` va `deno` ham shu buyruq bilan o'rnatiladi, ularni alohida
+   yuklash shart emas.
 
 3. `.env.example` faylidan nusxa olib, nomini `.env` qiling va ichiga
    [@BotFather](https://t.me/BotFather) bergan tokenni yozing:
@@ -26,23 +39,26 @@ Instagram'dagi ochiq video, Reels va rasmlarni yuklab beruvchi Telegram bot.
 
 ## Qanday ishlaydi
 
-- Foydalanuvchi Instagram havolasini yuboradi, bot uni `yt-dlp` orqali yuklaydi.
-- Yuklangan fayl `cache/` papkasida 6 soat saqlanadi.
+- Video va musiqa `yt-dlp` orqali yuklanadi, qidiruv YouTube'da bajariladi.
+- Yuklangan fayllar `cache/` papkasida 6 soat saqlanadi.
 - Telegram bergan `file_id` 30 kun eslab qolinadi, shuning uchun bir xil
-  post qayta so'ralsa, bot uni qayta yuklamasdan bir zumda yuboradi.
-- Bir foydalanuvchi 5 soniyada bitta so'rov yubora oladi.
+  video yoki qo'shiq qayta so'ralsa, bot uni bir zumda yuboradi.
+- YouTube videosi 50 MB ga sig'adigan eng yaxshi sifatda (720p gacha) olinadi.
+- Bir foydalanuvchi bir vaqtda ko'pi bilan 2 ta so'rov bajara oladi.
 
 ## Cheklovlar
 
-- Yopiq profillardagi postlar yuklanmaydi.
+- Yopiq profil va yopiq videolar yuklanmaydi.
 - 50 MB dan katta fayllar yuborilmaydi (Telegram Bot API cheklovi).
-- Bir nechta rasm yoki videodan iborat postlardan (karusel) hozircha
-  faqat bittasi yuklanadi.
+- Musiqa 30 daqiqadan uzun bo'lmasligi kerak.
+- Jonli efirlar yuklanmaydi.
+- Instagram'dagi bir nechta rasm yoki videodan iborat postlardan (karusel)
+  hozircha faqat bittasi yuklanadi.
 
-## Instagram ishlamay qolsa
+## Yuklash ishlamay qolsa
 
-Instagram tez-tez o'zgaradi. Yuklash to'xtab qolsa, avval `yt-dlp` ni yangilang:
+Saytlar tez-tez o'zgaradi. Yuklash to'xtab qolsa, avval `yt-dlp` ni yangilang:
 
 ```
-pip install -U yt-dlp
+pip install -U "yt-dlp[default]"
 ```
