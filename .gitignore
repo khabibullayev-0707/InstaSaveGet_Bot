@@ -1,0 +1,16 @@
+# Maxfiy sozlamalar
+.env
+
+# Bot ishlaganda yaratiladigan fayllar
+cache/
+downloads/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# IDE
+.idea/
+.vscode/

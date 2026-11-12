@@ -1,0 +1,10 @@
+python-telegram-bot>=20.8
+yt-dlp[default]
+requests>=2.31
+python-dotenv>=1.0
+
+# ffmpeg: video va ovozni birlashtirish, MP3 ga o'tkazish
+imageio-ffmpeg
+
+# deno: yt-dlp YouTube uchun talab qiladigan JavaScript muhiti
+deno
