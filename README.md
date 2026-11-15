@@ -37,6 +37,19 @@ Instagram, YouTube va Facebook'dan video hamda musiqa yuklab beruvchi Telegram b
    python main.py
    ```
 
+## Hostingda ishga tushirish (webhook rejimi)
+
+Bot sukut bo'yicha polling rejimida ishlaydi. Uni dasturni veb-sayt sifatida
+ishga tushiradigan va bo'sh turganda uxlatib qo'yadigan hostingga (masalan,
+alwaysdata "User program" sayti) joylash uchun muhit o'zgaruvchisini bering:
+
+```
+WEBHOOK_URL=https://sizning-manzilingiz
+```
+
+Port va IP hosting bergan `PORT` va `IP` o'zgaruvchilaridan olinadi. Shunda
+Telegram xabarlarni shu manzilga o'zi yuboradi va uxlab qolgan botni uyg'otadi.
+
 ## Qanday ishlaydi
 
 - Video va musiqa `yt-dlp` orqali yuklanadi, qidiruv YouTube'da bajariladi.
