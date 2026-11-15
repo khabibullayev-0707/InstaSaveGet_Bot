@@ -1618,6 +1618,29 @@ async def post_init(application: Application):
 # MAIN
 # =========================================================
 
+def webhook_settings():
+    """WEBHOOK_URL va port berilgan bo'lsa, run_webhook sozlamalarini qaytaradi.
+
+    Aks holda None: bot oddiy polling rejimida ishlaydi.
+    """
+    base_url = os.getenv("WEBHOOK_URL", "").strip().rstrip("/")
+    port = os.getenv("PORT") or os.getenv("ALWAYSDATA_HTTPD_PORT")
+
+    if not base_url or not port:
+        return None
+
+    # Manzil oxiridagi maxfiy qism: begona so'rovlar botga yetib bormaydi
+    secret = hashlib.sha256(BOT_TOKEN.encode("utf-8")).hexdigest()[:32]
+
+    return {
+        "listen": os.getenv("IP") or os.getenv("ALWAYSDATA_HTTPD_IP") or "0.0.0.0",
+        "port": int(port),
+        "url_path": secret,
+        "webhook_url": f"{base_url}/{secret}",
+        "secret_token": secret,
+    }
+
+
 def main():
     if not BOT_TOKEN:
         sys.exit(
@@ -1650,8 +1673,16 @@ def main():
     )
     application.add_error_handler(error_handler)
 
-    log.info("Bot ishga tushdi")
-    application.run_polling()
+    webhook = webhook_settings()
+
+    if webhook:
+        # Hosting dasturni veb-sayt sifatida ishga tushirganda: Telegram
+        # xabarlarni o'zi shu manzilga yuboradi va uxlab qolgan botni uyg'otadi
+        log.info("Bot webhook rejimida ishga tushdi (port %s)", webhook["port"])
+        application.run_webhook(**webhook)
+    else:
+        log.info("Bot ishga tushdi")
+        application.run_polling()
 
 
 if __name__ == "__main__":
